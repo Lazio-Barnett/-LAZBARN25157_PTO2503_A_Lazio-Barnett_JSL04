@@ -51,3 +51,35 @@ for (let i = 0; i < initialTasks.length; i++) {
 const todoList = document.getElementById("todo-list");
 const doingList = document.getElementById("doing-list");
 const doneList = document.getElementById("done-list");
+
+// grab the pop-up + form stuff
+const backdrop = document.getElementById("backdrop");
+const modal = document.getElementById("taskModal");
+const form = document.getElementById("taskForm");
+const titleInput = document.getElementById("titleInput");
+const descInput = document.getElementById("descInput");
+const statusSelect = document.getElementById("statusSelect");
+const closeBtn = document.getElementById("closeBtn");
+const saveBtn = document.getElementById("saveBtn");
+
+// error lines under the inputs
+const titleError = document.getElementById("titleError");
+const descError = document.getElementById("descError");
+
+// which task is open right now (null = none)
+let activeTaskId = null;
+
+// make a little clickable card for a task
+function makeTaskCard(task) {
+  const card = document.createElement("div");
+  card.className = "task-div";
+  card.textContent = task.title; // show title only
+  card.setAttribute("data-task-id", String(task.id)); // tag with id
+
+  // open the pop-up when this card is clicked
+  card.addEventListener("click", function () {
+    openModal(task.id);
+  });
+
+  return card;
+}
