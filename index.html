@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- fonts + styles -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- small icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon.svg"
+    />
+
+    <!-- load JS after HTML -->
+    <script defer src="./JS/scripts.js"></script>
+
+    <title>Kanban Task Management</title>
+  </head>
+
+  <body>
+    <!-- left menu: logo + board name -->
+    <nav class="side-bar" id="side-bar-div">
+      <div id="side-logo-div">
+        <img id="logo" src="./assets/logo-light.svg" alt="logo-light" />
+      </div>
+
+      <div class="boards-nav-links-div" id="boards-nav-links-div">
+        <h4 id="headline-sidepanel">ALL BOARDS (1)</h4>
+        <button class="board-btn">Launch Career</button>
+      </div>
+    </nav>
+
+    <!-- main area -->
+    <div id="layout">
+      <!-- top bar with board name -->
+      <header id="header" class="sticky-header">
+        <div class="header-name-div">
+          <img
+            src="./assets/favicon.svg"
+            alt="logo-mobile"
+            class="logo-mobile"
+          />
+          <h2 class="header-board-name" id="header-board-name">
+            Launch Career
+          </h2>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- three columns -->
+        <main class="card-column-main">
+          <!-- TODO column -->
+          <div class="column-div" data-status="todo">
+            <div id="todo-head-div" class="column-head-div">
+              <span class="dot" id="todo-dot"></span>
+              <h4 id="toDoText" class="columnHeader">TODO</h4>
+            </div>
+            <!-- tasks will show up here -->
+            <div class="tasks-container" id="todo-list"></div>
+          </div>
+
+          <!-- DOING column -->
+          <div class="column-div" data-status="doing">
+            <div id="doing-head-div" class="column-head-div">
+              <span class="dot" id="doing-dot"></span>
+              <h4 id="doingText" class="columnHeader">DOING</h4>
+            </div>
+            <!-- tasks will show up here -->
+            <div class="tasks-container" id="doing-list"></div>
+          </div>
+
+          <!-- DONE column -->
+          <div class="column-div" data-status="done">
+            <div id="done-head-div" class="column-head-div">
+              <span class="dot" id="done-dot"></span>
+              <h4 id="doneText" class="columnHeader">DONE</h4>
+            </div>
+            <!-- tasks will show up here -->
+            <div class="tasks-container" id="done-list"></div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- dark screen behind the pop-up -->
+    <div id="backdrop" hidden></div>
+
+    <!-- pop-up to edit a task -->
+    <dialog id="taskModal" aria-labelledby="modalTitle" role="dialog">
+      <form method="dialog" id="taskForm">
+        <!-- pop-up header -->
+        <header class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Edit Task</h3>
+          <button type="button" id="closeBtn" aria-label="Close">✕</button>
+        </header>
+
+        <!-- pop-up body -->
+        <div class="modal-body">
+          <label>
+            Title
+            <input id="titleInput" type="text" required />
+            <p id="titleError" class="field-error" hidden></p>
+          </label>
+
+          <label>
+            Description
+            <textarea id="descInput" rows="5" required></textarea>
+            <p id="descError" class="field-error" hidden></p>
+          </label>
+
+          <label>
+            Status
+            <select id="statusSelect">
+              <option value="todo">To Do</option>
+              <option value="doing">Doing</option>
+              <option value="done">Done</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- pop-up footer -->
+        <footer class="modal-footer">
+          <button type="submit" id="saveBtn">Save</button>
+        </footer>
+      </form>
+    </dialog>
+  </body>
+</html>
