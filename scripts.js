@@ -231,3 +231,21 @@ function onSave(e) {
   renderBoard();
   closeModal();
 }
+
+// add event listeners for form and buttons
+form.addEventListener("submit", onSave); // save on submit
+closeBtn.addEventListener("click", closeModal); // close with X
+backdrop.addEventListener("click", closeModal); // close by overlay
+
+// add event listeners for typing (clear errors as you type)
+titleInput.addEventListener("input", function () {
+  if (titleInput.value.trim()) clearError(titleInput, titleError);
+});
+descInput.addEventListener("input", function () {
+  if (descInput.value.trim()) clearError(descInput, descError);
+});
+
+// add event listener for Escape key (closes pop-up)
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && activeTaskId != null) closeModal();
+});
