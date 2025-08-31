@@ -83,3 +83,27 @@ function makeTaskCard(task) {
 
   return card;
 }
+
+// clear all three columns (fresh start)
+function clearColumns() {
+  todoList.innerHTML = "";
+  doingList.innerHTML = "";
+  doneList.innerHTML = "";
+}
+
+// tidy up status names so we only use: todo / doing / done
+function normalizeStatus(raw) {
+  if (!raw) return "todo";
+  const cleaned = String(raw).toLowerCase().trim();
+  if (
+    cleaned === "in-progress" ||
+    cleaned === "in progress" ||
+    cleaned === "inprogress"
+  ) {
+    return "doing";
+  }
+  if (cleaned === "todo" || cleaned === "doing" || cleaned === "done") {
+    return cleaned;
+  }
+  return "todo";
+}
