@@ -40,3 +40,9 @@ const initialTasks = [
     status: "done",
   },
 ];
+
+// make a copy we can change (leave the original alone)
+let tasks = [];
+for (let i = 0; i < initialTasks.length; i++) {
+  tasks.push(initialTasks[i]);
+}
