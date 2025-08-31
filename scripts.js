@@ -150,3 +150,84 @@ function clearError(inputEl, errorEl) {
     inputEl.removeAttribute("aria-invalid");
   }
 }
+
+// clear all current errors
+function clearErrors() {
+  clearError(titleInput, titleError);
+  clearError(descInput, descError);
+}
+
+// open the pop-up with this task’s data
+function openModal(taskId) {
+  let found = null;
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === taskId) {
+      found = tasks[i];
+      break;
+    }
+  }
+  if (!found) return;
+
+  activeTaskId = taskId;
+  titleInput.value = found.title;
+  descInput.value = found.description;
+  statusSelect.value = normalizeStatus(found.status);
+
+  clearErrors();
+  backdrop.hidden = false;
+
+  if (typeof modal.showModal === "function") {
+    modal.showModal();
+  } else {
+    modal.setAttribute("open", "");
+  }
+}
+
+// close the pop-up
+function closeModal() {
+  activeTaskId = null;
+  backdrop.hidden = true;
+
+  if (typeof modal.close === "function") {
+    modal.close();
+  } else {
+    modal.removeAttribute("open");
+  }
+}
+
+// save changes → redraw → close
+function onSave(e) {
+  e.preventDefault();
+  if (activeTaskId == null) return;
+
+  const newTitle = titleInput.value.trim();
+  const newDesc = descInput.value.trim();
+  const newStatus = statusSelect.value;
+
+  clearErrors();
+  let hasError = false;
+
+  if (!newTitle) {
+    showError(titleInput, titleError, "Title is required.");
+    if (!hasError) titleInput.focus();
+    hasError = true;
+  }
+  if (!newDesc) {
+    showError(descInput, descError, "Description is required.");
+    if (!hasError) descInput.focus();
+    hasError = true;
+  }
+  if (hasError) return;
+
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === activeTaskId) {
+      tasks[i].title = newTitle;
+      tasks[i].description = newDesc;
+      tasks[i].status = newStatus;
+      break;
+    }
+  }
+
+  renderBoard();
+  closeModal();
+}
