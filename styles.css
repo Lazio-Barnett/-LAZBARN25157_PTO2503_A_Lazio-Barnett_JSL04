@@ -1,0 +1,390 @@
+/* sizes include padding/border (easier) */
+* {
+  box-sizing: border-box;
+}
+
+/* colors + sizes I reuse */
+:root {
+  --primary-color: #fff; /* white */
+  --secondary-color: #f4f7fd; /* light gray page */
+  --text-color: #000; /* black text */
+  --text-faded: #828fa3; /* softer gray text */
+  --card-shadow: 0px 4px 6px rgba(54, 78, 126, 0.1); /* soft shadow */
+  --sidebar-width: 300px; /* sidebar width */
+}
+
+/* page setup */
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  display: flex; /* sidebar left, board right */
+  margin: 0;
+  min-height: 100vh; /* fill screen height */
+  background: var(--secondary-color);
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+/* left menu */
+.side-bar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--primary-color);
+  border-right: 1px solid #e4ebfa;
+  display: flex;
+  flex-direction: column; /* stack items top→bottom */
+}
+
+/* logo area in the sidebar */
+#side-logo-div {
+  margin: 33px 113px 54px 34px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* logo fills its box */
+#logo {
+  width: 100%;
+}
+
+/* boards list */
+.boards-nav-links-div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* small sidebar heading */
+#headline-sidepanel {
+  padding: 0 12px 0 50px;
+}
+
+h4 {
+  color: var(--text-faded);
+  font-size: 0.75rem;
+  letter-spacing: 0.125rem; /* spaced letters */
+}
+
+/* board button */
+.board-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 276px;
+  height: 48px;
+  padding: 28px 12px 28px 50px;
+  background: #635fc7; /* purple */
+  color: #fff; /* white text */
+  border: none;
+  border-radius: 0 100px 100px 0; /* rounded on the right */
+  font-weight: bold;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* main area (right side) */
+#layout {
+  flex: 1; /* take remaining space */
+  overflow-x: hidden; /* no sideways scroll */
+}
+
+/* top bar */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* name left, space right */
+  height: 96px;
+  padding: 0 35px 0 30px;
+  background: var(--primary-color);
+  border-bottom: 1px solid #e4ebfa;
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+/* name row in header */
+.header-name-div {
+  display: flex;
+  align-items: center;
+}
+
+/* small logo for phones only */
+.logo-mobile {
+  display: none;
+}
+
+/* columns wrapper */
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 35px;
+}
+
+/* three columns side by side */
+.card-column-main {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 304px));
+  gap: 8px; /* space between columns */
+}
+
+/* one column */
+.column-div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* space between header and cards */
+  padding: 12px;
+}
+
+/* dot + column title row */
+.column-head-div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* column title */
+.columnHeader {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.125rem;
+  color: var(--text-faded);
+}
+
+/* tiny colored dot */
+.dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; /* circle */
+  display: inline-block;
+}
+
+/* dot colors */
+#todo-dot {
+  background: #49c4e5;
+} /* blue */
+#doing-dot {
+  background: #8471f2;
+} /* purple */
+#done-dot {
+  background: #219c90;
+} /* green */
+
+/* where cards stack */
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* one task card */
+.task-div {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding-left: 15px;
+  background: var(--primary-color);
+  color: var(--text-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  font-size: 0.9375rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* big board title */
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* tablets */
+@media (max-width: 1023px) {
+  .side-bar {
+    display: none;
+  } /* hide sidebar to save space */
+
+  .side-bar.show-sidebar {
+    display: flex !important;
+    position: fixed; /* overlay mode */
+    height: auto;
+  }
+
+  .logo-mobile {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  body {
+    font-size: 0.8rem;
+  }
+
+  .board-btn {
+    font-size: 0.8rem;
+    padding-left: 15px;
+    margin-right: 15px;
+    font-weight: 700;
+  }
+
+  .container {
+    padding: 0;
+    width: 100%;
+    align-items: center; /* center columns */
+  }
+
+  .card-column-main {
+    grid-template-columns: repeat(2, minmax(0, 360px)); /* now 2 columns */
+    gap: 8px;
+  }
+
+  header {
+    height: 64px;
+    padding: 0 10px 0 18px;
+    border: none;
+  }
+
+  #header-board-name {
+    font-size: 1rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+  .column-head-div {
+    gap: 8px;
+  }
+  .column-div {
+    width: 100%;
+  }
+}
+
+/* phones */
+@media (max-width: 576px) {
+  .card-column-main {
+    grid-template-columns: minmax(0, 380px); /* stack into one */
+  }
+  .column-div {
+    padding: 24px;
+  }
+}
+
+/* dark screen behind the pop-up */
+#backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 9;
+}
+
+/* the pop-up box */
+#taskModal {
+  border: 0;
+  border-radius: 12px;
+  padding: 16px;
+  width: min(560px, calc(100% - 2rem));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* make sure pop-up is above backdrop */
+#taskModal[open] {
+  z-index: 10;
+}
+
+/* pop-up header row */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* the X button */
+#closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-faded);
+  border-radius: 50%;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: background 0.2s, color 0.2s;
+}
+
+#closeBtn:hover,
+#closeBtn:focus {
+  background: #f4f7fd;
+  color: #000;
+  outline: none;
+}
+
+/* stop page scroll when pop-up open (optional helper) */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* pop-up body */
+.modal-body {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* pop-up footer */
+.modal-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* labels + inputs in the pop-up */
+#taskForm label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-faded);
+}
+
+#taskForm input[type="text"],
+#taskForm textarea,
+#taskForm select {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid #e4ebfa;
+  border-radius: 8px;
+  background: #fff;
+}
+
+#taskForm button {
+  font: inherit;
+  padding: 8px 12px;
+  border: 1px solid #e4ebfa;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+#taskForm button:hover {
+  background: #f4f7fd;
+}
+
+/* small red text under a field when there is a problem */
+.field-error {
+  color: #d14343;
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+}
+
+/* red outline on a field with a problem */
+.input-error {
+  border-color: #d14343 !important;
+  outline: 2px solid rgba(209, 67, 67, 0.15);
+}
