@@ -107,3 +107,46 @@ function normalizeStatus(raw) {
   }
   return "todo";
 }
+
+// draw all tasks into the right columns
+function renderBoard() {
+  clearColumns();
+
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    const card = makeTaskCard(task);
+    const status = normalizeStatus(task.status);
+
+    if (status === "todo") {
+      todoList.appendChild(card);
+    } else if (status === "doing") {
+      doingList.appendChild(card);
+    } else if (status === "done") {
+      doneList.appendChild(card);
+    }
+  }
+}
+
+// first paint
+renderBoard();
+
+// show an error under a field
+function showError(inputEl, errorEl, message) {
+  if (errorEl) {
+    errorEl.textContent = message;
+    errorEl.hidden = false;
+  }
+  if (inputEl) {
+    inputEl.classList.add("input-error");
+    inputEl.setAttribute("aria-invalid", "true");
+  }
+}
+
+// hide an error for a field
+function clearError(inputEl, errorEl) {
+  if (errorEl) errorEl.hidden = true;
+  if (inputEl) {
+    inputEl.classList.remove("input-error");
+    inputEl.removeAttribute("aria-invalid");
+  }
+}
