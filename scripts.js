@@ -46,3 +46,8 @@ let tasks = [];
 for (let i = 0; i < initialTasks.length; i++) {
   tasks.push(initialTasks[i]);
 }
+
+// grab the columns
+const todoList = document.getElementById("todo-list");
+const doingList = document.getElementById("doing-list");
+const doneList = document.getElementById("done-list");
